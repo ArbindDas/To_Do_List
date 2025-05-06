@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full bg-gray-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>home</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="h-full">
+   
+    <div class="min-h-full">
+      <main
+        class="w-full min-h-screen bg-gradient-to-br from-teal-400 to-emerald-600 py-16 font-sans"
+      >
+        <div class="mx-auto max-w-4xl px-6 sm:px-8">
+          <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">
+              Customer Details
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- ID -->
+              <div class="flex flex-col">
+                <span
+                  class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                  >ID</span
+                >
+                <span
+                  class="mt-1 text-lg font-semibold text-gray-700"
+                  th:text="${customer.id}"
+                  >1</span
+                >
+              </div>
+
+              <!-- First Name -->
+              <div class="flex flex-col">
+                <span
+                  class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                  >First Name</span
+                >
+                <span
+                  class="mt-1 text-lg font-semibold text-gray-700"
+                  th:text="${customer.firstName}"
+                  >John</span
+                >
+              </div>
+
+              <!-- Last Name -->
+              <div class="flex flex-col">
+                <span
+                  class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                  >Last Name</span
+                >
+                <span
+                  class="mt-1 text-lg font-semibold text-gray-700"
+                  th:text="${customer.lastName}"
+                  >Doe</span
+                >
+              </div>
+
+              <!-- Email -->
+              <div class="flex flex-col">
+                <span
+                  class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                  >Email</span
+                >
+                <span
+                  class="mt-1 text-lg font-semibold text-gray-700"
+                  th:text="${customer.email}"
+                  >john@example.com</span
+                >
+              </div>
+
+              <!-- Phone -->
+              <div class="flex flex-col">
+                <span
+                  class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                  >Phone</span
+                >
+                <span
+                  class="mt-1 text-lg font-semibold text-gray-700"
+                  th:text="${customer.phone}"
+                  >+1234567890</span
+                >
+              </div>
+            </div>
+
+            <div class="mt-4 flex justify-center">
+              <a
+                th:href="@{/customer/{id}/download-pdf(id=${customer.id})}"
+                class="px-6 py-3 bg-red-600 text-white rounded-lg shadow-lg hover:bg-red-700 transition-all duration-300"
+              >
+                Download as PDF
+              </a>
+            </div>
+
+            <div class="mt-4 flex justify-center">
+              <!-- Share via Email Button -->
+              <a
+                th:href="@{'mailto:?subject=Customer Details&body=Please find the customer details attached.&attachment=' + ${customer.id}}"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300"
+              >
+                Share via Email
+              </a>
+            </div>
+
+        
+
+            <!-- Back Button -->
+            <div class="mt-10 flex justify-center">
+              <a
+                href="/customers"
+                class="px-6 py-3 bg-emerald-600 text-white rounded-lg shadow-lg hover:bg-emerald-700 transition-all duration-300"
+              >
+                Back to Customers
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            padding: 100px 0 50px 0;
+            text-align: center;
+        }
+
+        .contact-section {
+            padding: 50px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        .btn {
+            background: #4f46e5;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #4338ca;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-item i {
+            font-size: 1.5em;
+            color: #4f46e5;
+            margin-right: 15px;
+            width: 30px;
+        }
+
+        .success-message {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you</p>
+        </div>
+    </div>
+
+    <div class="contact-section container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p>Have questions? We're here to help!</p>
+
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>123 Business Street, Suite 100<br>Kathmandu , 08 10001</p>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+977 (555) 123-4567</p>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@JSR.com</p>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <div id="success-message" class="success-message"></div>
+
+
+                <form id="contactForm" class="space-y-6">
+                    <div class="space-y-2">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out"
+                            placeholder="Enter your name">
+                        <span class="text-red-500 text-sm hidden" id="name-error"></span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out"
+                            placeholder="Enter your email">
+                        <span class="text-red-500 text-sm hidden" id="email-error"></span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out"
+                            placeholder="Enter subject">
+                        <span class="text-red-500 text-sm hidden" id="subject-error"></span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" required rows="4"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out resize-none"
+                            placeholder="Enter your message"></textarea>
+                        <span class="text-red-500 text-sm hidden" id="message-error"></span>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("contactForm");
+            const inputs = form.querySelectorAll("input, textarea");
+            const submitBtn = document.getElementById("submitBtn");
+
+            function validateField(field) {
+                let errorSpan = document.getElementById(field.id + "-error");
+                let value = field.value.trim();
+
+                // Name validation: Only letters and spaces allowed
+                if (field.id === "name") {
+                    const nameRegex = /^[A-Za-z\s]+$/;
+                    if (!nameRegex.test(value)) {
+                        errorSpan.textContent = "Name can only contain letters and spaces!";
+                        field.classList.add("error");
+                        return false;
+                    }
+                }
+
+                // Email validation: Ensure it contains at least one letter
+                if (field.id === "email") {
+                    const emailRegex = /^(?=.*[a-zA-Z])[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) {
+                        errorSpan.textContent = "Please enter a valid email address with at least one letter!";
+                        field.classList.add("error");
+                        return false;
+                    }
+                }
+
+                // Subject validation: Only letters and spaces allowed
+                if (field.id === "subject") {
+                    const subjectRegex = /^[A-Za-z\s]+$/;
+                    if (!subjectRegex.test(value)) {
+                        errorSpan.textContent = "Subject can only contain letters and spaces!";
+                        field.classList.add("error");
+                        return false;
+                    }
+                }
+
+                // General empty field validation
+                if (value === "") {
+                    errorSpan.textContent = field.name + " is required!";
+                    field.classList.add("error");
+                    return false;
+                } else {
+                    errorSpan.textContent = "";
+                    field.classList.remove("error");
+                    return true;
+                }
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener("blur", function () {
+                    validateField(this);
+                    checkFormValidity();
+                });
+
+                input.addEventListener("input", function () {
+                    validateField(this);
+                    checkFormValidity();
+                });
+            });
+
+            function checkFormValidity() {
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                submitBtn.disabled = !isValid;
+            }
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                checkFormValidity();
+                if (!submitBtn.disabled) {
+                    document.getElementById("success-message").textContent = "Form submitted successfully!";
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .error {
+            border-color: red;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        const form = document.getElementById("contactForm");
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            checkFormValidity();
+            if (!submitBtn.disabled) {
+                document.getElementById("success-message").textContent = "Form submitted successfully!";
+
+                // Clear the form fields after 1 second
+                setTimeout(() => {
+                    inputs.forEach(input => {
+                        input.value = ""; // Clear the value of input fields
+                        input.classList.remove("error"); // Remove error class if present
+                        const errorSpan = document.getElementById(input.id + "-error");
+                        errorSpan.textContent = ""; // Clear any error messages
+                    });
+                    submitBtn.disabled = true; // Disable the submit button again
+                }, 1000); // 1000 milliseconds = 1 second
+            }
+        });
+
+    </script>
+</body>
+
+</html>

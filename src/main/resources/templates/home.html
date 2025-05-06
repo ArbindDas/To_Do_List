@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full bg-gray-100">
+  <head>
+    <meta charset="UTF-8" />
+    <title>home</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="h-full">
+<!--    <h1>hello from home page</h1>-->
+
+    <!-- <h1 th:text="${message}">Default Message</h1> -->
+
+    <!--
+  This example requires updating your template:
+
+  ```
+  <html class="h-full bg-gray-100">
+  <body class="h-full">
+  ```
+-->
+    <div class="min-h-full">
+      <nav class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+              <div class="shrink-0">
+                <img
+                  class="size-8 bg-gray-700 rounded-full"
+                  src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                  alt="Your Company"
+                />
+              </div>
+              <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                  <a
+                    th:href="@{/}"
+                    class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                    aria-current="page"
+                    >Dashboard</a
+                  >
+                  <a
+                    th:href="@{/login}"
+                    class="text-white hover:bg-white hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    >Login</a
+                  >
+                  <a
+                    th:href="@{/signup}"
+                    class="text-white hover:bg-white hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    >Signup</a
+                  >
+                  <a
+                    th:href="@{/about}"
+                    class="text-white hover:bg-white hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    >About Us</a
+                  >
+                  <a
+                    th:href="@{/contact}"
+                    class="text-white hover:bg-white hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                    >Contact Us</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <header class="bg-white shadow-sm">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900">
+            Dashboard
+          </h1>
+        </div>
+      </header>
+
+      <main
+        class="w-full min-h-screen bg-gradient-to-br from-teal-400 to-emerald-600 py-12 font-sans"
+      >
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <!-- Header with Add Button and Search Bar -->
+          <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-white">Customers</h1>
+
+            <!-- Add Customer Button -->
+            <a
+              th:href="@{/create}"
+              class="flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-full shadow-lg"
+            >
+              Add Customer
+            </a>
+          </div>
+
+          <!-- Search Form -->
+          <form
+            th:action="@{/customers}"
+            method="get"
+            class="min-w-full mb-8 flex justify-center items-center space-x-4"
+          >
+            <div class="relative w-full md:w-1/2 bg-white">
+              <input
+                type="text"
+                name="search"
+                th:value="${search}"
+                placeholder="Search by First Name"
+                class="w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700"
+              />
+              <span class="absolute right-3 top-3 text-gray-400">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                  stroke="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 19l-4-4m2-5A7 7 0 1110 3a7 7 0 0110 7z"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+            <button
+              type="submit"
+              class="cursor-pointer px-6 py-3 bg-teal-600 text-white rounded-lg shadow-md hover:bg-teal-700 focus:ring-4 focus:ring-teal-500 transition-all duration-300"
+            >
+              Search
+            </button>
+          </form>
+
+          <!-- Total Customers -->
+          <div class="text-white mb-4">
+            <p>Total Customers: <span th:text="${totalCustomers}">0</span></p>
+          </div>
+
+          <!-- Customer Table -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto">
+              <div
+                th:if="${successMessage != null}"
+                id="successMessage"
+                class="text-center text-lg text-green-600 mb-2 opacity-0 transition-opacity duration-1000 ease-in-out"
+              >
+                <span th:text="${successMessage}"></span>
+              </div>
+
+              <div
+                th:if="${message != null}"
+                id="deleteMessage"
+                class="text-center text-lg text-red-600 mb-2"
+              >
+                <span th:text="${message}"></span>
+              </div>
+
+              <table class="min-w-full table-auto">
+                <thead>
+                  <tr
+                    class="text-xs font-semibold text-gray-600 bg-gray-200 uppercase tracking-wider"
+                  >
+                    <th class="py-3 px-6 text-left">ID</th>
+                    <th class="py-3 px-6 text-left">First Name</th>
+                    <th class="py-3 px-6 text-left">Last Name</th>
+                    <th class="py-3 px-6 text-left">Email</th>
+                    <th class="py-3 px-6 text-left">Phone</th>
+                    <th &nbsp;></th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr
+                    th:each="customer : ${customerPage.content}"
+                    class="hover:bg-gray-50"
+                  >
+                    <td
+                      class="py-3 px-6 text-sm text-gray-700"
+                      th:text="${customer.id}"
+                    ></td>
+                    <td
+                      class="py-3 px-6 text-sm text-gray-700"
+                      th:text="${customer.firstName}"
+                    ></td>
+                    <td
+                      class="py-3 px-6 text-sm text-gray-700"
+                      th:text="${customer.lastName}"
+                    ></td>
+                    <td
+                      class="py-3 px-6 text-sm text-gray-700"
+                      th:text="${customer.email}"
+                    ></td>
+                    <td
+                      class="py-3 px-6 text-sm text-gray-700"
+                      th:text="${customer.phone}"
+                    ></td>
+
+                    <td class="py-3 px-6 text-sm text-gray-700">
+
+                      <!-- // show button -->
+                      <a
+                        th:href="@{/customer/{id}(id=${customer.id})}"
+                        class="mr-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-indigo-600 hover:shadow-lg transition-all duration-300 ease-in-out"
+                      >
+                        show
+                      </a>
+                      <!-- Edit Button -->
+                      <a
+                        th:href="@{/customer/{id}/edit(id=${customer.id})}"
+                        class="mr-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition-all duration-300 ease-in-out"
+                      >
+                        Edit
+                      </a>
+
+                      <!-- Delete Button -->
+                      <a
+                        th:href="@{/customer/{id}/delete(id=${customer.id})}"
+                        class="px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 ease-in-out"
+                      >
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+              class="px-6 py-4 bg-gray-100 border-t border-gray-200 flex items-center justify-between"
+            >
+              <p class="text-sm text-gray-600">
+                Showing <span th:text="${customerPage.number + 1}">1</span> of
+                <span th:text="${customerPage.totalPages}">1</span> pages
+              </p>
+
+              <div class="flex space-x-2">
+                <!-- Previous Button -->
+                <a
+                  th:href="@{/customers(page=${currentPage - 1}, size=10, search=${search})}"
+                  th:if="${currentPage > 0}"
+                  class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md text-sm transition duration-200"
+                >
+                  Previous
+                </a>
+
+                <!-- Page Numbers -->
+                <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                  <a
+                    th:href="@{/customers(page=${i}, size=10, search=${search})}"
+                    th:text="${i + 1}"
+                    th:classappend="${i == currentPage} ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+                    class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium transition duration-200"
+                  >
+                  </a>
+                </span>
+
+                <!-- Next Button -->
+                <a
+                  th:href="@{/customers(page=${currentPage + 1}, size=10, search=${search})}"
+                  th:if="${currentPage < totalPages - 1}"
+                  class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md text-sm transition duration-200"
+                >
+                  Next
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = document.getElementById("successMessage");
+
+        if (successMessage) {
+          // Make the success message visible with smooth fade-in
+          setTimeout(() => {
+            successMessage.classList.remove("opacity-0");
+            successMessage.classList.add("opacity-100");
+          }, 100); // Short delay before making it visible
+
+          // Set timeout to fade out the success message after 1.5 seconds
+          setTimeout(function () {
+            successMessage.classList.remove("opacity-100");
+            successMessage.classList.add("opacity-0");
+          }, 3000); // 3 seconds in total (1.5s visible + 1.5s fade out)
+        }
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const deleteMessage = document.getElementById("deleteMessage");
+
+        if (deleteMessage) {
+          setTimeout(() => {
+            deleteMessage.classList.remove("opacity-0");
+            deleteMessage.classList.add("opacity-100");
+          }, 100); // Short delay before making it visible
+
+          setTimeout(function () {
+            deleteMessage.classList.remove("opacity-100");
+            deleteMessage.classList.add("opacity-0");
+          }, 2000); // 3 seconds in total (1.5s visible + 1.5s fade out)
+        }
+      });
+    </script>
+  </body>
+</html>
